@@ -145,3 +145,5 @@ $RECYCLE.BIN/
 *.gif
 *.bmp
 *.tiff
+
+postman.json

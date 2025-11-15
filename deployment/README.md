@@ -88,11 +88,11 @@ Description=Metalized Background Detector API
 After=network.target
 
 [Service]
-User=deploy
+User=vps138
 Group=www-data
-WorkingDirectory=/opt/apps/metalized-detector/app
-Environment="PATH=/opt/apps/metalized-detector/app/venv/bin"
-ExecStart=/opt/apps/metalized-detector/app/venv/bin/gunicorn --workers 3 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 main:app
+WorkingDirectory=/var/www/3tech-ai
+Environment="PATH=/var/www/3tech-ai/venv/bin"
+ExecStart=/var/www/3tech-ai/venv/bin/gunicorn --workers 3 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 main:app
 Restart=always
 
 [Install]
@@ -102,8 +102,8 @@ WantedBy=multi-user.target
 ### 4.3 Start and enable the service
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl start metalized-detector
-sudo systemctl enable metalized-detector
+sudo systemctl start 3tech-ai
+sudo systemctl enable 3tech-ai
 ```
 
 ## Step 5: Configure Nginx
@@ -114,7 +114,7 @@ Create `/etc/nginx/sites-available/metalized-detector`:
 ```nginx
 server {
     listen 80;
-    server_name your_domain.com;
+    server_name ai.3tech.sy;
 
     location / {
         proxy_pass http://127.0.0.1:8000;
@@ -138,7 +138,7 @@ server {
 
 ### 5.2 Enable the site and restart Nginx
 ```bash
-sudo ln -s /etc/nginx/sites-available/metalized-detector /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/3tech-ai /etc/nginx/sites-enabled/
 sudo nginx -t  # Test configuration
 sudo systemctl restart nginx
 ```
@@ -152,7 +152,7 @@ sudo apt install -y certbot python3-certbot-nginx
 
 ### 6.2 Obtain SSL certificate
 ```bash
-sudo certbot --nginx -d your_domain.com
+sudo certbot --nginx -d ai.3tech.sy
 ```
 
 ### 6.3 Set up automatic renewal
@@ -174,7 +174,7 @@ sudo ufw enable
 
 ### 8.1 Check application logs
 ```bash
-sudo journalctl -u metalized-detector -f
+sudo journalctl -u 3tech-ai -f
 ```
 
 ### 8.2 Check Nginx logs

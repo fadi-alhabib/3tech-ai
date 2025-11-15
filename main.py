@@ -227,13 +227,13 @@ async def detect_metalized(file: UploadFile = File(...)):
             detail=f"Error processing image: {str(e)}"
         )
         
-    finally:
+    # finally:
         # Clean up temporary file
-        try:
-            if os.path.exists(temp_file):
-                os.remove(temp_file)
-        except Exception as e:
-            logger.warning(f"Failed to delete temporary file {temp_file}: {str(e)}")
+        # try:
+        #     if os.path.exists(temp_file):
+        #         os.remove(temp_file)
+        # except Exception as e:
+        #     logger.warning(f"Failed to delete temporary file {temp_file}: {str(e)}")
 
 @app.get("/health", status_code=status.HTTP_200_OK)
 async def health_check():
